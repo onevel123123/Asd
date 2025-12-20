@@ -49,7 +49,7 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-serif font-bold text-lg mb-1">Locație</h3>
-                      <p className="text-muted-foreground">str. C. Brâncoveanu nr. 57A,<br />Timișoara, România</p>
+                      <p className="text-muted-foreground">Timișoara, Str. Memorandului, nr. 96<br />România</p>
                     </div>
                   </div>
                   
@@ -59,8 +59,8 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-serif font-bold text-lg mb-1">Email</h3>
-                      <a href="mailto:contact@alinamates.ro" className="text-muted-foreground hover:text-primary transition-colors">
-                        contact@alinamates.ro
+                      <a href="mailto:hello@alinamates.ro" className="text-muted-foreground hover:text-primary transition-colors">
+                        hello@alinamates.ro
                       </a>
                     </div>
                   </div>
@@ -71,19 +71,20 @@ export default function Contact() {
                     </div>
                     <div>
                       <h3 className="font-serif font-bold text-lg mb-1">Telefon</h3>
-                      <p className="text-muted-foreground">+40 700 000 000</p>
-                      <p className="text-sm text-muted-foreground/70 mt-1">Disponibil Luni-Vineri, 09:00 - 17:00</p>
+                      <a href="tel:+40724570927" className="text-muted-foreground hover:text-primary transition-colors font-medium">
+                        +40 724 570 927
+                      </a>
+                      <p className="text-sm text-muted-foreground/70 mt-1">WhatsApp disponibil</p>
                     </div>
                   </div>
                 </div>
 
-                {/* Map Placeholder */}
+                {/* Contact Image */}
                 <div className="h-64 bg-secondary/20 rounded-2xl overflow-hidden relative">
-                   {/* map image */}
                   <img 
-                    src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=800&auto=format&fit=crop" 
-                    alt="Map" 
-                    className="w-full h-full object-cover opacity-60 grayscale hover:grayscale-0 transition-all duration-500"
+                    src="https://alinamates.ro/wp-content/uploads/2023/10/alina-mates_contact-1.jpg" 
+                    alt="Cabinet" 
+                    className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-all duration-500"
                   />
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                     <span className="bg-white/90 backdrop-blur px-4 py-2 rounded-lg text-sm font-medium shadow-sm">

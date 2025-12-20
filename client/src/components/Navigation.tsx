@@ -29,9 +29,11 @@ export function Navigation() {
     >
       <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
         <Link href="/">
-          <span className="font-serif text-2xl font-bold text-foreground cursor-pointer tracking-tight">
-            Alina Mateș
-          </span>
+          <img 
+            src="https://alinamates.ro/wp-content/uploads/2023/10/logo-alina-mates-2.png" 
+            alt="Alina Mateș Logo" 
+            className="h-12 cursor-pointer object-contain"
+          />
         </Link>
 
         {/* Desktop Menu */}
