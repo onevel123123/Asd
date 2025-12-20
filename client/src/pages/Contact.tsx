@@ -80,18 +80,23 @@ export default function Contact() {
                 </div>
 
                 {/* Contact Image */}
-                <div className="h-64 bg-secondary/20 rounded-2xl overflow-hidden relative">
+                <a 
+                  href="https://maps.app.goo.gl/kRPC2TDYEJA2yP5u7"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-64 bg-secondary/20 rounded-2xl overflow-hidden relative block hover:shadow-lg transition-shadow duration-300"
+                >
                   <img 
                     src="https://alinamates.ro/wp-content/uploads/2023/10/alina-mates_contact-1.jpg" 
                     alt="Cabinet" 
                     className="w-full h-full object-cover opacity-90 hover:opacity-100 transition-all duration-500"
                   />
-                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                    <span className="bg-white/90 backdrop-blur px-4 py-2 rounded-lg text-sm font-medium shadow-sm">
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-auto">
+                    <span className="bg-white/90 backdrop-blur px-4 py-2 rounded-lg text-sm font-medium shadow-sm hover:bg-white transition-colors cursor-pointer">
                       Vezi pe Google Maps
                     </span>
                   </div>
-                </div>
+                </a>
               </div>
 
               {/* Contact Form */}
