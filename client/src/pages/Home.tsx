@@ -56,9 +56,8 @@ export default function Home() {
           >
             {/* Main Hero Image */}
             <div className="relative z-10 rounded-[2rem] overflow-hidden shadow-2xl shadow-primary/10">
-              {/* woman in peaceful setting reading or looking out window */}
               <img 
-                src="https://images.unsplash.com/photo-1544717305-2782549b5136?q=80&w=1000&auto=format&fit=crop" 
+                src="https://alinamates.ro/wp-content/uploads/2023/11/alina-mates_home_3.png" 
                 alt="Consiliere și echilibru" 
                 className="w-full h-auto object-cover aspect-[4/5]"
               />
@@ -86,9 +85,9 @@ export default function Home() {
             </p>
             <div className="pt-8">
               <img 
-                src="https://images.unsplash.com/photo-1515984977862-1c7201ef324d?w=800&auto=format&fit=crop" 
+                src="https://alinamates.ro/wp-content/uploads/2023/10/alina-mates_3-2.jpg" 
                 alt="Signature or Symbol" 
-                className="h-24 mx-auto opacity-80 rounded-full"
+                className="h-32 mx-auto opacity-80 rounded-lg"
               />
             </div>
           </div>

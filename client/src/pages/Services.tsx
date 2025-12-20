@@ -68,9 +68,8 @@ export default function Services() {
                 </ul>
               </div>
               <div className="relative h-64 rounded-2xl overflow-hidden shadow-lg">
-                {/* cozy office or abstract calming image */}
                 <img 
-                  src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&auto=format&fit=crop" 
+                  src="https://alinamates.ro/wp-content/uploads/2023/10/alina-mates_produse.jpg" 
                   alt="Cabinet atmosferă" 
                   className="w-full h-full object-cover"
                 />

@@ -14,7 +14,7 @@ async function seedDatabase() {
       shortDescription: "Consiliere individuală pentru dezvoltare personală.",
       price: 150,
       duration: "50 min",
-      imageUrl: "https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+      imageUrl: "https://alinamates.ro/wp-content/uploads/2023/10/hai-sa-ne-cunoastem-1.png"
     });
 
     await storage.createService({
@@ -24,7 +24,7 @@ async function seedDatabase() {
       shortDescription: "Pachet intensiv pentru situații dificile.",
       price: 800,
       duration: "1 x 90 min + 4 x 50 min",
-      imageUrl: "https://images.unsplash.com/photo-1527689368864-3a821dbccc34?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+      imageUrl: "https://alinamates.ro/wp-content/uploads/2023/10/alina-mates_situatie-criza.png"
     });
 
     await storage.createService({
@@ -34,7 +34,7 @@ async function seedDatabase() {
       shortDescription: "Suport pentru armonie în relația de cuplu.",
       price: 200,
       duration: "60-70 min",
-      imageUrl: "https://images.unsplash.com/photo-1516585427167-9f4af9627e6c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+      imageUrl: "https://alinamates.ro/wp-content/uploads/2023/10/vreau-sa-ma-cunosc-2.png"
     });
     console.log("Database seeded with services.");
   }
