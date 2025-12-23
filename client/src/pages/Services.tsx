@@ -1,13 +1,44 @@
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { ServiceCard } from "@/components/ServiceCard";
-import { useServices } from "@/hooks/use-services";
 import { motion } from "framer-motion";
-import { Loader2 } from "lucide-react";
+import { Link } from "wouter";
+
+// Static services data
+const SERVICES = [
+  {
+    id: 1,
+    title: "Sesiune de Consiliere - 50 min",
+    slug: "sesiune-consiliere",
+    duration: "50 minute",
+    price: 200,
+    shortDescription: "O sesiune individuală pentru a-ți explora provocările și a găsi soluții personalizate.",
+    description: "Sesiunea de consiliere personală este o întâlnire one-on-one dedicată explorării nevoilor tale specifice. Te ajut să înțelegi mai bine situația ta, să identifici resursele interioare și să dezvolți o strategie personalizată pentru a depăși dificultățile.",
+    imageUrl: "https://alinamates.ro/wp-content/uploads/2023/10/hai-sa-ne-cunoastem-1.png"
+  },
+  {
+    id: 2,
+    title: "Pachet Situație de Criză - 4 ședințe",
+    slug: "pachet-criza",
+    duration: "4 ședințe x 50 min",
+    price: 700,
+    shortDescription: "Sprijin intensiv pentru a depăși momente dificile și a restabili echilibrul emoțional.",
+    description: "Acest pachet este conceput pentru situații de criză sau momente de mare dificultate emoțională. Prin 4 ședințe concentrate, te ajut să stabilizezi starea emoțională, să găsești resursele interioare și să ieși din criză mai puternic.",
+    imageUrl: "https://alinamates.ro/wp-content/uploads/2023/10/alina-mates_situatie-criza.png"
+  },
+  {
+    id: 3,
+    title: "Consiliere de Cuplu - 60 min",
+    slug: "consiliere-cuplu",
+    duration: "60 minute",
+    price: 280,
+    shortDescription: "Îmbunătățește comunicarea și relația cu partenerul tău prin sesiuni de consiliere de cuplu.",
+    description: "Consilirea de cuplu te ajută pe tine și pe partenerul tău să comunicați mai eficient, să înțelegeți nevoile reciproce și să consolidați relația. Lucrez cu ambii parteneri pentru a găsi soluții constructive și a reconstrui conexiunea.",
+    imageUrl: "https://alinamates.ro/wp-content/uploads/2023/10/vreau-sa-ma-cunosc-2.png"
+  }
+];
 
 export default function Services() {
-  const { data: services, isLoading, error } = useServices();
-
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
@@ -15,7 +46,7 @@ export default function Services() {
       <main className="flex-grow pt-32 pb-24">
         <div className="container mx-auto px-4 md:px-6">
           <div className="max-w-3xl mx-auto text-center mb-16 space-y-6">
-            <span className="text-primary font-medium tracking-wide uppercase text-sm">Servicii de Consiliere</span>
+            <span className="text-primary font-medium tracking-wide uppercase text-sm" data-testid="label-services">Servicii de Consiliere</span>
             <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground">
               Investește în Tine
             </h1>
@@ -24,29 +55,19 @@ export default function Services() {
             </p>
           </div>
 
-          {isLoading ? (
-            <div className="flex justify-center items-center h-64">
-              <Loader2 className="w-8 h-8 text-primary animate-spin" />
-            </div>
-          ) : error ? (
-            <div className="text-center py-12 bg-red-50 rounded-2xl border border-red-100">
-              <p className="text-red-600 font-medium">A apărut o eroare la încărcarea serviciilor.</p>
-              <button onClick={() => window.location.reload()} className="mt-4 text-sm underline text-red-700">Încearcă din nou</button>
-            </div>
-          ) : (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {services?.map((service, index) => (
-                <motion.div
-                  key={service.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
-                  <ServiceCard service={service} />
-                </motion.div>
-              ))}
-            </div>
-          )}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {SERVICES.map((service, index) => (
+              <motion.div
+                key={service.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                data-testid={`card-service-${service.id}`}
+              >
+                <ServiceCard service={service} />
+              </motion.div>
+            ))}
+          </div>
           
           {/* Info Block */}
           <div className="mt-24 bg-secondary/20 rounded-3xl p-8 md:p-12">
@@ -75,6 +96,14 @@ export default function Services() {
                 />
               </div>
             </div>
+          </div>
+
+          <div className="mt-16 text-center">
+            <Link href="/contact">
+              <button className="px-10 py-4 bg-primary text-white rounded-xl font-bold shadow-lg shadow-primary/20 hover:shadow-xl hover:-translate-y-0.5 transition-all" data-testid="button-contact">
+                Contactează-mă pentru mai multe detalii
+              </button>
+            </Link>
           </div>
         </div>
       </main>

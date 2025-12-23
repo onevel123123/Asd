@@ -3,11 +3,42 @@ import { Footer } from "@/components/Footer";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
 import { ArrowRight, Heart, Star, Sun, ShieldCheck } from "lucide-react";
-import { useServices } from "@/hooks/use-services";
+
+// Static services data
+const SERVICES = [
+  {
+    id: 1,
+    title: "Sesiune de Consiliere - 50 min",
+    slug: "sesiune-consiliere",
+    duration: "50 minute",
+    price: 200,
+    shortDescription: "O sesiune individuală pentru a-ți explora provocările și a găsi soluții personalizate.",
+    description: "Sesiunea de consiliere personală este o întâlnire one-on-one dedicată explorării nevoilor tale specifice. Te ajut să înțelegi mai bine situația ta, să identifici resursele interioare și să dezvolți o strategie personalizată pentru a depăși dificultățile.",
+    imageUrl: "https://alinamates.ro/wp-content/uploads/2023/10/hai-sa-ne-cunoastem-1.png"
+  },
+  {
+    id: 2,
+    title: "Pachet Situație de Criză - 4 ședințe",
+    slug: "pachet-criza",
+    duration: "4 ședințe x 50 min",
+    price: 700,
+    shortDescription: "Sprijin intensiv pentru a depăși momente dificile și a restabili echilibrul emoțional.",
+    description: "Acest pachet este conceput pentru situații de criză sau momente de mare dificultate emoțională. Prin 4 ședințe concentrate, te ajut să stabilizezi starea emoțională, să găsești resursele interioare și să ieși din criză mai puternic.",
+    imageUrl: "https://alinamates.ro/wp-content/uploads/2023/10/alina-mates_situatie-criza.png"
+  },
+  {
+    id: 3,
+    title: "Consiliere de Cuplu - 60 min",
+    slug: "consiliere-cuplu",
+    duration: "60 minute",
+    price: 280,
+    shortDescription: "Îmbunătățește comunicarea și relația cu partenerul tău prin sesiuni de consiliere de cuplu.",
+    description: "Consilirea de cuplu te ajută pe tine și pe partenerul tău să comunicați mai eficient, să înțelegeți nevoile reciproce și să consolidați relația. Lucrez cu ambii parteneri pentru a găsi soluții constructive și a reconstrui conexiunea.",
+    imageUrl: "https://alinamates.ro/wp-content/uploads/2023/10/vreau-sa-ma-cunosc-2.png"
+  }
+];
 
 export default function Home() {
-  const { data: services } = useServices();
-
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Navigation />
@@ -35,13 +66,13 @@ export default function Home() {
               O viață plină de sens și fericire începe cu tine. Te însoțesc în călătoria ta spre autenticitate și echilibru interior.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <Link href="/programare">
-                <button className="px-8 py-4 rounded-xl bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300">
+              <Link href="/contact">
+                <button className="px-8 py-4 rounded-xl bg-primary text-primary-foreground font-semibold shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 transition-all duration-300" data-testid="button-start">
                   Începe călătoria ta
                 </button>
               </Link>
               <Link href="/servicii">
-                <button className="px-8 py-4 rounded-xl border border-border bg-white text-foreground font-semibold hover:bg-secondary/20 hover:border-secondary transition-all duration-300">
+                <button className="px-8 py-4 rounded-xl border border-border bg-white text-foreground font-semibold hover:bg-secondary/20 hover:border-secondary transition-all duration-300" data-testid="button-services">
                   Vezi programele
                 </button>
               </Link>
@@ -129,6 +160,7 @@ export default function Home() {
                 key={idx}
                 whileHover={{ y: -5 }}
                 className="bg-white p-8 rounded-2xl shadow-sm border border-border/50 hover:border-primary/30 transition-all duration-300"
+                data-testid={`card-benefit-${idx}`}
               >
                 <div className="bg-secondary/30 w-16 h-16 rounded-full flex items-center justify-center mb-6">
                   {item.icon}
@@ -152,17 +184,17 @@ export default function Home() {
               </p>
             </div>
             <Link href="/servicii">
-              <span className="hidden md:flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all cursor-pointer">
+              <span className="hidden md:flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all cursor-pointer" data-testid="link-all-services">
                 Toate Serviciile <ArrowRight className="w-5 h-5" />
               </span>
             </Link>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services?.slice(0, 3).map((service) => (
+            {SERVICES.slice(0, 3).map((service) => (
               <div key={service.id} className="h-full">
                 {/* Simplified Card for Home */}
-                <div className="bg-background rounded-2xl p-6 border border-border hover:shadow-lg transition-all h-full flex flex-col">
+                <div className="bg-background rounded-2xl p-6 border border-border hover:shadow-lg transition-all h-full flex flex-col" data-testid={`card-service-${service.id}`}>
                   <h3 className="text-xl font-bold font-serif mb-2">{service.title}</h3>
                   <div className="flex items-center text-sm text-primary font-medium mb-4">
                     <Clock className="w-4 h-4 mr-1" /> {service.duration}
@@ -170,9 +202,9 @@ export default function Home() {
                   <p className="text-muted-foreground text-sm mb-6 flex-grow">
                     {service.shortDescription}
                   </p>
-                  <Link href={`/programare?service=${service.id}`}>
-                    <button className="w-full py-3 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white transition-colors">
-                      Detalii & Programare
+                  <Link href={`/contact`}>
+                    <button className="w-full py-3 rounded-lg border border-primary text-primary font-semibold hover:bg-primary hover:text-white transition-colors" data-testid={`button-details-${service.id}`}>
+                      Detalii & Contact
                     </button>
                   </Link>
                 </div>
@@ -182,7 +214,7 @@ export default function Home() {
 
           <div className="mt-8 text-center md:hidden">
             <Link href="/servicii">
-              <button className="text-primary font-semibold">Vezi toate serviciile</button>
+              <button className="text-primary font-semibold" data-testid="button-all-services">Vezi toate serviciile</button>
             </Link>
           </div>
         </div>
@@ -198,9 +230,9 @@ export default function Home() {
           <p className="text-primary-foreground/80 text-lg max-w-2xl mx-auto mb-10">
             Nu lăsa pe mâine fericirea și liniștea ta. Ești la o decizie distanță de o viață mai împlinită.
           </p>
-          <Link href="/programare">
-            <button className="px-10 py-4 bg-white text-primary font-bold text-lg rounded-xl shadow-2xl hover:shadow-white/20 hover:scale-105 transition-all duration-300">
-              Programează o ședință
+          <Link href="/contact">
+            <button className="px-10 py-4 bg-white text-primary font-bold text-lg rounded-xl shadow-2xl hover:shadow-white/20 hover:scale-105 transition-all duration-300" data-testid="button-schedule">
+              Contactează-mă
             </button>
           </Link>
         </div>

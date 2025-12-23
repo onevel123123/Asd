@@ -90,9 +90,9 @@ export default function About() {
         </div>
 
         <div className="container mx-auto px-4 mt-24 text-center">
-          <Link href="/programare">
+          <Link href="/contact">
             <button className="px-10 py-4 bg-primary text-white rounded-xl font-bold shadow-xl shadow-primary/20 hover:shadow-2xl hover:-translate-y-1 transition-all">
-              Programează o discuție
+              Contactează-mă
             </button>
           </Link>
         </div>

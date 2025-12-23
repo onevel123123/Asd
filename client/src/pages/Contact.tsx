@@ -2,16 +2,27 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { api, type InsertMessage } from "@shared/routes";
-import { useSendMessage } from "@/hooks/use-messages";
+import { z } from "zod";
 import { Mail, MapPin, Phone, Loader2, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import emailjs from "emailjs-com";
+
+const contactFormSchema = z.object({
+  name: z.string().min(2, "Numele trebuie să aibă cel puțin 2 caractere"),
+  email: z.string().email("Email invalid"),
+  message: z.string().min(10, "Mesajul trebuie să aibă cel puțin 10 caractere"),
+});
+
+type ContactFormData = z.infer<typeof contactFormSchema>;
 
 export default function Contact() {
-  const { mutate, isPending, isSuccess } = useSendMessage();
-  
-  const form = useForm<InsertMessage>({
-    resolver: zodResolver(api.messages.create.input),
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [isSending, setIsSending] = useState(false);
+  const [error, setError] = useState("");
+
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactFormSchema),
     defaultValues: {
       name: "",
       email: "",
@@ -19,10 +30,35 @@ export default function Contact() {
     },
   });
 
-  const onSubmit = (data: InsertMessage) => {
-    mutate(data, {
-      onSuccess: () => form.reset(),
-    });
+  useEffect(() => {
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+  }, []);
+
+  const onSubmit = async (data: ContactFormData) => {
+    setIsSending(true);
+    setError("");
+    
+    try {
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          to_email: "hello@alinamates.ro",
+          from_name: data.name,
+          from_email: data.email,
+          message: data.message,
+        }
+      );
+      
+      setIsSuccess(true);
+      form.reset();
+      setTimeout(() => setIsSuccess(false), 5000);
+    } catch (err) {
+      setError("Eroare la trimiterea mesajului. Încearcă din nou.");
+      console.error("EmailJS Error:", err);
+    } finally {
+      setIsSending(false);
+    }
   };
 
   return (
@@ -116,10 +152,10 @@ export default function Contact() {
                       Mulțumesc pentru mesaj. Voi reveni cu un răspuns în curând.
                     </p>
                     <button 
-                      onClick={() => window.location.reload()}
+                      onClick={() => setIsSuccess(false)}
                       className="mt-6 text-primary font-medium hover:underline"
                     >
-                      Trimite un alt mesaj
+                      Scrie un alt mesaj
                     </button>
                   </div>
                 ) : (
@@ -132,6 +168,7 @@ export default function Contact() {
                         {...form.register("name")}
                         className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
                         placeholder="ex: Andrei Popescu"
+                        data-testid="input-name"
                       />
                       {form.formState.errors.name && (
                         <p className="text-sm text-red-500">{form.formState.errors.name.message}</p>
@@ -145,6 +182,7 @@ export default function Contact() {
                         type="email"
                         className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
                         placeholder="ex: andrei@email.com"
+                        data-testid="input-email"
                       />
                       {form.formState.errors.email && (
                         <p className="text-sm text-red-500">{form.formState.errors.email.message}</p>
@@ -158,18 +196,24 @@ export default function Contact() {
                         rows={5}
                         className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all resize-none"
                         placeholder="Cu ce te pot ajuta?"
+                        data-testid="input-message"
                       />
                       {form.formState.errors.message && (
                         <p className="text-sm text-red-500">{form.formState.errors.message.message}</p>
                       )}
                     </div>
 
+                    {error && (
+                      <p className="text-sm text-red-500 bg-red-50 p-3 rounded">{error}</p>
+                    )}
+
                     <button
                       type="submit"
-                      disabled={isPending}
+                      disabled={isSending}
                       className="w-full py-4 rounded-xl bg-primary text-primary-foreground font-bold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed transition-all"
+                      data-testid="button-submit"
                     >
-                      {isPending ? (
+                      {isSending ? (
                         <span className="flex items-center justify-center gap-2">
                           <Loader2 className="w-5 h-5 animate-spin" /> Se trimite...
                         </span>
